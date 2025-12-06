@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>G.I.C Khairna – School Management System</title>
 
   <style>
+    /* Basic reset & box sizing */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
     body {
       margin: 0;
-      font-family: Arial;
+      font-family: Arial, Helvetica, sans-serif;
       background: #f2f5ff;
+      color: #111;
+      line-height: 1.4;
     }
 
     header {
@@ -18,28 +24,27 @@
       padding: 16px;
       font-size: 26px;
       text-align: center;
-      font-weight: bold;
+      font-weight: 700;
     }
 
+    /* NAV */
     nav {
       display: flex;
+      flex-wrap: wrap;
       background: #003d99;
       padding: 10px;
-      gap: 20px;
+      gap: 12px;
       justify-content: center;
     }
-
     nav a {
       color: white;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
+      padding: 6px 10px;
     }
+    nav a:hover { text-decoration: underline; }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    /* FIXED HERO SECTION */
+    /* HERO */
     .hero {
       height: 300px;
       background: url("./assets/hero.jpg") no-repeat center center/cover;
@@ -48,180 +53,266 @@
       justify-content: center;
       color: white;
       font-size: 40px;
-      font-weight: bold;
-      text-shadow: 2px 2px 10px black;
+      font-weight: 700;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
     }
 
+    /* SECTIONS */
     section {
       padding: 20px;
       background: white;
       margin: 20px auto;
       width: 90%;
+      max-width: 1100px;
       border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
-    .teacher-card, .gallery-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
+    h2 { margin-bottom: 12px; font-size: 20px; }
 
-    .flex {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
+    /* TABLES */
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 10px;
     }
     table, th, td {
       border: 1px solid #d5d9ff;
       padding: 10px;
+      text-align: left;
     }
     th {
       background: #0b63d6;
       color: white;
+      font-weight: 600;
     }
+
+    /* RESPONSIVE GRID used for teachers & gallery */
+    .grid {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    /* IMAGE CARDS: fixed aspect ratio so all images look identical */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden; /* ensures border-radius applies to image */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 8px;
+    }
+
+    /* Images: uniform shape using aspect-ratio, object-fit keeps centers */
+    .card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;    /* use 4:3 ratio — change to 1/1 for square */
+      object-fit: cover;
+      display: block;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card h3 { margin: 6px 0 4px; font-size: 16px; text-transform: capitalize; }
+    .card p  { margin: 0; color: #555; font-size: 14px; }
+
+    /* Gallery uses same card style but without captions */
+    .gallery-grid {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* CONTACT FORM styling (removed inline styles) */
+    form label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    form input[type="text"],
+    form input[type="email"],
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d5d9ff;
+      border-radius: 6px;
+      font-size: 14px;
+      resize: vertical;
+    }
+    form button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #0b63d6;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    form button:hover { opacity: 0.95; }
 
     footer {
       text-align: center;
       padding: 15px;
       color: gray;
+      margin-top: 10px;
     }
+
+    /* Small screen tweaks */
+    @media (max-width: 520px) {
+      .hero { font-size: 28px; height: 220px; }
+      header { font-size: 20px; }
+      nav a { font-size: 14px; padding: 6px; }
+    }
+
   </style>
 </head>
 
 <body>
 
-<header>G.I.C Khairna – School Management System</header>
+  <header>G.I.C Khairna – School Management System</header>
 
-<nav>
-  <a href="#home">Home</a>
-  <a href="#notice">Notice Board</a>
-  <a href="#attendance">Attendance</a>
-  <a href="#teachers">Teachers</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#fee">Fee Info</a>
-  <a href="#timetable">Timetable</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#notice">Notice Board</a>
+    <a href="#attendance">Attendance</a>
+    <a href="#teachers">Teachers</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#fee">Fee Info</a>
+    <a href="#timetable">Timetable</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-<!-- HERO -->
-<section id="home" class="hero">
-  Welcome to G.I.C Khairna
-</section>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    Welcome to G.I.C Khairna
+  </section>
 
-<!-- NOTICE BOARD -->
-<section id="notice">
-  <h2>📢 Notice Board</h2>
-  <ul>
-    <li>10 Dec 2025 – Mid-term exams start</li>
-    <li>20 Dec 2025 – Parent Teacher Meeting</li>
-    <li>25 Dec 2025 – Christmas Holiday</li>
-  </ul>
-</section>
+  <!-- NOTICE BOARD -->
+  <section id="notice">
+    <h2>📢 Notice Board</h2>
+    <ul style="margin-top:8px; list-style: disc inside;">
+      <li>10 Dec 2025 – Mid-term exams start</li>
+      <li>20 Dec 2025 – Parent Teacher Meeting</li>
+      <li>25 Dec 2025 – Christmas Holiday</li>
+    </ul>
+  </section>
 
-<!-- ATTENDANCE SYSTEM -->
-<section id="attendance">
-  <h2>📝 Attendance System</h2>
-  <p><strong>Status:</strong> Present / Absent system (demo)</p>
+  <!-- ATTENDANCE SYSTEM -->
+  <section id="attendance">
+    <h2>📝 Attendance System</h2>
+    <p><strong>Status:</strong> Present / Absent system (demo)</p>
 
-  <table>
-    <tr><th>Student</th><th>Class</th><th>Status</th></tr>
-    <tr><td>Yash Pandey</td><td>12th</td><td>Present</td></tr>
-    <tr><td>Rohit</td><td>12th</td><td>Absent</td></tr>
-    <tr><td>Akash</td><td>11th</td><td>Present</td></tr>
-  </table>
-</section>
+    <table>
+      <tr><th>Student</th><th>Class</th><th>Status</th></tr>
+      <tr><td>Yash</td><td>12th</td><td>Present</td></tr>
+      <tr><td>Rohit</td><td>12th</td><td>Absent</td></tr>
+      <tr><td>Akash</td><td>11th</td><td>Present</td></tr>
+      <tr><td>ayush</td><td>12th</td><td>Present</td></tr>
+      <tr><td>harry</td><td>11th</td><td>absent</td></tr>
+      <tr><td>Amit</td><td>11th</td><td>adsent</td></tr>
+      <tr><td>vikas</td><td>10th</td><td>Present</td></tr>
+      <tr><td>mohit</td><td>9th</td><td>Present</td></tr>
+    </table>
+  </section>
 
-<!-- TEACHERS -->
-<section id="teachers">
-  <h2>👨‍🏫 Our Teachers</h2>
-  <div class="flex">
+  <!-- TEACHERS -->
+  <section id="teachers">
+    <h2>👨‍🏫 Our Teachers</h2>
 
-    <div>
-      <img src="./assets/teacher1.jpg" class="teacher-card">
-      <h3>Mr. Sharma</h3>
-      <p>Math Teacher</p>
+    <!-- GRID: each teacher as a .card with image + caption -->
+    <div class="grid">
+      <div class="card">
+        <img src="./assets/teacher1.jpg" alt="Mr. sachin joshi">
+        <h3>Mr. sachin joshi</h3>
+        <p>Math Teacher</p>
+      </div>
+
+      <div class="card">
+        <img src="./assets/teacher2.jpg" alt="Ms. rajiv sir">
+        <h3>Ms. rajiv sir</h3>
+        <p>Chemistry Teacher</p>
+      </div>
+
+      <div class="card">
+        <img src="./assets/teacher3.jpg" alt="Mrs. Singh">
+        <h3>Mrs. Singh</h3>
+        <p>English Teacher</p>
+      </div>
+
+      <!-- Extra blank cards serve as placeholders — add/remove as you like -->
+      <div class="card" style="display:none;">
+        <img src="./assets/teacher4.jpg" alt="Placeholder">
+        <h3>Teacher Name</h3>
+        <p>Subject</p>
+      </div>
     </div>
+  </section>
 
-    <div>
-      <img src="./assets/teacher2.jpg" class="teacher-card">
-      <h3>Ms. Verma</h3>
-      <p>Science Teacher</p>
+  <!-- GALLERY -->
+  <section id="gallery">
+    <h2>🖼 Gallery</h2>
+
+    <div class="gallery-grid" style="margin-top:8px;">
+      <img src="./assets/gallery1.jpg" alt="Gallery image 1">
+      <img src="./assets/gallery2.jpg" alt="Gallery image 2">
+      <img src="./assets/gallery3.jpg" alt="Gallery image 3">
+      <!-- Add more images: they will auto-fit and keep same aspect ratio -->
     </div>
+  </section>
 
-    <div>
-      <img src="./assets/teacher3.jpg" class="teacher-card">
-      <h3>Mrs. Singh</h3>
-      <p>English Teacher</p>
-    </div>
+  <!-- FEE INFO -->
+  <section id="fee">
+    <h2>💰 Fee Information</h2>
 
-  </div>
-</section>
+    <table>
+      <tr><th>Class</th><th>Monthly Fee</th></tr>
+      <tr><td>9th</td><td>₹500</td></tr>
+      <tr><td>10th</td><td>₹600</td></tr>
+      <tr><td>11th</td><td>₹700</td></tr>
+      <tr><td>12th</td><td>₹800</td></tr>
+    </table>
+  </section>
 
-<!-- GALLERY -->
-<section id="gallery">
-  <h2>🖼 Gallery</h2>
-  <div class="flex">
+  <!-- TIMETABLE -->
+  <section id="timetable">
+    <h2>📅 Timetable</h2>
+    <table>
+      <tr><th>Day</th><th>Period 1</th><th>Period 2</th><th>Period 3</th><th>Period 4</th></tr>
+      <tr><td>Mon</td><td>Math</td><td>Science</td><td>English</td><td>Computer</td></tr>
+      <tr><td>Tue</td><td>Hindi</td><td>Math</td><td>Social</td><td>Sports</td></tr>
+      <tr><td>Wed</td><td>Science</td><td>English</td><td>Math</td><td>Art</td></tr>
+    </table>
+  </section>
 
-    <img src="./assets/gallery1.jpg" class="gallery-img">
-    <img src="./assets/gallery2.jpg" class="gallery-img">
-    <img src="./assets/gallery3.jpg" class="gallery-img">
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>📨 Contact Form</h2>
 
-  </div>
-</section>
+    <form>
+      <label for="name">Name:</label>
+      <input id="name" type="text" placeholder="Your name">
 
-<!-- FEE INFO -->
-<section id="fee">
-  <h2>💰 Fee Information</h2>
+      <label for="email">Email:</label>
+      <input id="email" type="email" placeholder="you@example.com">
 
-  <table>
-    <tr><th>Class</th><th>Monthly Fee</th></tr>
-    <tr><td>9th</td><td>₹500</td></tr>
-    <tr><td>10th</td><td>₹600</td></tr>
-    <tr><td>11th</td><td>₹700</td></tr>
-    <tr><td>12th</td><td>₹800</td></tr>
-  </table>
-</section>
+      <label for="msg">Message:</label>
+      <textarea id="msg" rows="4" placeholder="Write your message..."></textarea>
 
-<!-- TIMETABLE -->
-<section id="timetable">
-  <h2>📅 Timetable</h2>
-  <table>
-    <tr><th>Day</th><th>Period 1</th><th>Period 2</th><th>Period 3</th><th>Period 4</th></tr>
-    <tr><td>Mon</td><td>Math</td><td>Science</td><td>English</td><td>Computer</td></tr>
-    <tr><td>Tue</td><td>Hindi</td><td>Math</td><td>Social</td><td>Sports</td></tr>
-    <tr><td>Wed</td><td>Science</td><td>English</td><td>Math</td><td>Art</td></tr>
-  </table>
-</section>
+      <button type="button">Send Message</button>
+    </form>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <h2>📨 Contact Form</h2>
-
-  <form>
-    <label>Name:</label>
-    <input type="text" style="width:100%; padding:10px">
-
-    <label>Email:</label>
-    <input type="email" style="width:100%; padding:10px">
-
-    <label>Message:</label>
-    <textarea style="width:100%; padding:10px" rows="3"></textarea>
-
-    <button style="margin-top:10px; padding:10px 20px; background:#0b63d6; border:none; color:white; font-size:16px">
-      Send Message
-    </button>
-  </form>
-</section>
-
-<footer>© G.I.C Khairna • Project by Yash Pandey (Class 12th)</footer>
+  <footer>© G.I.C Khairna • Project by Yash Pandey (Class 12th)</footer>
 
 </body>
 </html>
